@@ -10,6 +10,7 @@ interface Props {
 defineProps<Props>()
 
 const dialog = useDialog({
+  animateFromTrigger: true,
   component: () => import('../components/MyDecksCreateModal.vue'),
 })
 
@@ -30,8 +31,13 @@ function onCreateDeck() {
       />
     </div>
 
-    <AppButton @click="onCreateDeck">
-      Create Deck
-    </AppButton>
+    <div>
+      <AppButton
+        :id="dialog.triggerId"
+        @click="onCreateDeck"
+      >
+        Create Deck
+      </AppButton>
+    </div>
   </div>
 </template>
