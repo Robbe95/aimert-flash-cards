@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { AppDialogContainer } from '@wisemen/vue-core'
 import { ConfigProvider } from 'radix-vue'
 
 function useIdFunction() {
@@ -8,6 +9,7 @@ function useIdFunction() {
 
 <template>
   <ConfigProvider :use-id="useIdFunction">
+    <AppDialogContainer />
     <NuxtLoadingIndicator />
     <NuxtLayout>
       <NuxtPage />
