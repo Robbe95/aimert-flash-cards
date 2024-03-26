@@ -9,7 +9,10 @@ export function getDecksQuery() {
 
       const decks = await trpc.decks.getDecks.query()
 
-      return decks
+      return decks.map(deck => ({
+        ...deck,
+        createdAt: new Date(deck.createdAt),
+      }))
     },
     queryKey: [
       'decks',

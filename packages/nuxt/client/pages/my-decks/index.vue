@@ -14,6 +14,6 @@ await suspense()
 <template>
   <MyDecksView
     v-if="data != null"
-    :concerts="data"
+    :decks="data"
   />
 </template>

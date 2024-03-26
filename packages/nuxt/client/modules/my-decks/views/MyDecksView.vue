@@ -4,7 +4,7 @@ import { useDialog } from '@wisemen/vue-core'
 import type { Deck } from '~/shared/models/decks/deck.model'
 
 interface Props {
-  decks: Deck
+  decks: Deck[]
 }
 
 defineProps<Props>()
@@ -19,8 +19,17 @@ function onCreateDeck() {
 </script>
 
 <template>
-  <div>
-    {{ decks }}
+  <div class="flex flex-col gap-4">
+    <div class="flex flex-wrap gap-4">
+      <AppCard
+        v-for="deck in decks"
+        :key="deck.id"
+        :title="deck.name"
+        :description="deck.name"
+        class="border px-12 py-8"
+      />
+    </div>
+
     <AppButton @click="onCreateDeck">
       Create Deck
     </AppButton>

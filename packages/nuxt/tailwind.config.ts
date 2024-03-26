@@ -20,9 +20,9 @@ export default {
       borderRadius: {
         button: 'var(--radius-button)',
         card: 'var(--radius-card)',
+        dialog: 'var(--radius-dialog)',
         full: 'var(--radius-full)',
         input: 'var(--radius-input)',
-        modal: 'var(--radius-modal)',
         popover: 'var(--radius-popover)',
       },
 
@@ -32,9 +32,9 @@ export default {
         'button-shadow': 'var(--shadow-button);',
         'card-hover-shadow': 'var(--shadow-card-hover);',
         'card-shadow': 'var(--shadow-card);',
+        'dialog-shadow': 'var(--shadow-dialog);',
         'input-shadow': 'var(--shadow-input)',
         'jobs-table-header-shadow': '0px 1px 2px 0px #1018280F, 0px 2px 3px 0px #1018281A',
-        'modal-shadow': 'var(--shadow-modal);',
         'popover-shadow': 'var(--shadow-popover);',
         'table-header': '0px 2px 3px 0px #1018281A',
         'table-shadow': '0px 1px 2px 0px #1018280F',
@@ -183,12 +183,12 @@ export default {
       },
 
       transitionTimingFunction: {
-        'modal': 'cubic-bezier(0.22, 0.68, 0, 1.51)',
-        'modal-overlay': 'cubic-bezier(0.17, 0.67, 0.16, 0.99)',
+        'dialog': 'cubic-bezier(0.22, 0.68, 0, 1.51)',
+        'dialog-overlay': 'cubic-bezier(0.17, 0.67, 0.16, 0.99)',
       },
 
       width: {
-        modal: '28rem',
+        dialog: '28rem',
       },
     },
   },

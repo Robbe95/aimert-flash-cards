@@ -21,13 +21,19 @@ export function useDecksService() {
       name: createDeckParams.name,
     }
 
-    const deck = await db
+    const deck = (await db
       .insert(decks)
       .values(dataObject)
+      .returning())[0]
 
-      .returning()
+    await db
+      .insert(userDeck)
+      .values({
+        deckId: deck.id,
+        userId: createDeckParams.userId,
+      })
 
-    console.warn(deck)
+    return deck
   }
 
   return {

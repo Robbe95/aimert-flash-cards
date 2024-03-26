@@ -1,10 +1,10 @@
 {
   "i18n-ally.localesPaths": [
-    "./packages/nuxt/locales"
+    "./packages/nuxt/client/locales"
   ],
   "i18n-ally.enabledFrameworks": [
     "vue"
   ],
   "i18n-ally.keystyle": "flat",
-  "vue.server.hybridMode": true
+  "i18n-ally.sourceLanguage": "en",
 }

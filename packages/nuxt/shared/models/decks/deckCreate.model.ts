@@ -1,8 +1,7 @@
 import { z } from 'zod'
 
-export const concertCreateInput = z.object({
-  image: z.string(),
+export const deckCreateInput = z.object({
   name: z.string(),
 })
 
-export type ConcertCreateInput = z.infer<typeof concertCreateInput>
+export type DeckCreateInput = z.infer<typeof deckCreateInput>

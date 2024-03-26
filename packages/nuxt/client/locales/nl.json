@@ -1,5 +1,7 @@
 {
   "app.name": "Concert Compass",
+  "create_deck.name": "Name",
+  "create_deck.submit": "Add deck",
   "errors.login_failed_reason": "Er is iets misgelopen met het inloggen.",
   "login.description": "Voer uw e-mailadres en wachtwoord in om in te loggen.",
   "login.title": "Inloggen",
