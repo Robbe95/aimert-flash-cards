@@ -1,13 +1,13 @@
 import { TRPCError } from '@trpc/server'
 
 import { authProcedure } from '~/server/trpc/trpc'
-import { deckGetInput } from '~/shared/models/decks/deckGet.model'
+import { deckPlayInput } from '~/shared/models/decks/deckPlay.model'
 
 import { useDecksService } from '../services/decks.service'
 
-export const getDeck = authProcedure
-  .input(deckGetInput)
-  .query(async ({ ctx, input }) => {
+export const playDeck = authProcedure
+  .input(deckPlayInput)
+  .mutation(async ({ ctx, input }) => {
     const decksService = useDecksService()
 
     const userHasDeck = await decksService.userHasDeck(ctx.user.id, input.deckId)
@@ -19,7 +19,9 @@ export const getDeck = authProcedure
       })
     }
 
-    const userDeck = await decksService.getDeck(input.deckId)
+    await decksService.playDeck({
+      deckId: input.deckId,
+    })
 
-    return userDeck
+    return null
   })

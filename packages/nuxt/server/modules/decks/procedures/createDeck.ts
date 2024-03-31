@@ -1,15 +1,10 @@
-import { z } from 'zod'
-
 import { authProcedure } from '~/server/trpc/trpc'
+import { deckCreateInput } from '~/shared/models/decks/deckCreate.model'
 
 import { useDecksService } from '../services/decks.service'
 
 export const createDeck = authProcedure
-  .input(
-    z.object({
-      name: z.string(),
-    }),
-  )
+  .input(deckCreateInput)
   .mutation(async ({ ctx, input }) => {
     const decksService = useDecksService()
     const deckResponse = await decksService.createDeck({

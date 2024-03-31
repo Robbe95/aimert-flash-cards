@@ -2,16 +2,17 @@ import { useQuery } from '@tanstack/vue-query'
 
 import { useTrpc } from '~/client/api/useTrpc'
 import { deckSchema } from '~/shared/models/decks/deck.model'
+import type { DeckGetInput } from '~/shared/models/decks/deckGet.model'
 
-export function getDecksQuery() {
+export function getDeckQuery(input: DeckGetInput) {
   return useQuery({
     queryFn: async () => {
-      const { trpc } = useTrpc()
-
       try {
-        const decks = await trpc.decks.getDecks.query()
+        const { trpc } = useTrpc()
 
-        return decks.map(deck => deckSchema.parse(deck))
+        const deck = await trpc.decks.getDeck.query(input)
+
+        return deckSchema.parse(deck)
       }
       catch (error) {
         console.error('Error validating query', error)
@@ -20,7 +21,8 @@ export function getDecksQuery() {
       }
     },
     queryKey: [
-      'decks',
+      'deck',
+      input.deckId,
     ],
   })
 }

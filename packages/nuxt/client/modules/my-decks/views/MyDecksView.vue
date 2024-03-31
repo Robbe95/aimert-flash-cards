@@ -11,11 +11,15 @@ defineProps<Props>()
 
 const dialog = useDialog({
   animateFromTrigger: true,
-  component: () => import('../components/MyDecksCreateModal.vue'),
+  component: () => import('../components/DecksCreateModal.vue'),
 })
 
 function onCreateDeck() {
-  void dialog.openDialog()
+  void dialog.openDialog({
+    onClose: () => {
+      dialog.closeDialog()
+    },
+  })
 }
 </script>
 
@@ -28,7 +32,13 @@ function onCreateDeck() {
         :title="deck.name"
         :description="deck.name"
         class="border px-12 py-8"
-      />
+      >
+        <NuxtLinkLocale
+          :to="`/my-decks/${deck.id}`"
+        >
+          View Deck
+        </NuxtLinkLocale>
+      </AppCard>
     </div>
 
     <div>

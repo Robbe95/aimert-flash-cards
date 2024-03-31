@@ -1,5 +1,6 @@
 {
   "app.name": "Concert Compass",
+  "create_card.front_text": "Front text",
   "create_deck.name": "Name",
   "create_deck.submit": "Add deck",
   "errors.login_failed_reason": "Er is iets misgelopen met het inloggen.",
