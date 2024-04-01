@@ -44,7 +44,7 @@ onSubmitForm(async (data) => {
 
     setSession(response.data.session)
 
-    router.push(localePath('/'))
+    router.push(localePath('/my-decks'))
   }
   catch (error) {
     form.addErrors({

@@ -8,7 +8,7 @@ export const guessCard = authProcedure
   .mutation(async ({ ctx, input }) => {
     const decksService = useDecksService()
 
-    const deckResponse = await decksService.guessCard(cardGuessInput, ctx.user.id)
+    const deckResponse = await decksService.guessCard(input, ctx.user.id)
 
     return deckResponse
   })

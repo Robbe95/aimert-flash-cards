@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
 
 import { useTrpc } from '~/client/api/useTrpc'
-import { deckSchema } from '~/shared/models/decks/deck.model'
+import { deckSchemaWithCounts } from '~/shared/models/decks/deck.model'
 import type { DeckGetInput } from '~/shared/models/decks/deckGet.model'
 
 export function getDeckQuery(input: DeckGetInput) {
@@ -12,7 +12,7 @@ export function getDeckQuery(input: DeckGetInput) {
 
         const deck = await trpc.decks.getDeck.query(input)
 
-        return deckSchema.parse(deck)
+        return deckSchemaWithCounts.parse(deck)
       }
       catch (error) {
         console.error('Error validating query', error)

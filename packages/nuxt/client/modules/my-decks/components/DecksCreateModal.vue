@@ -30,7 +30,7 @@ const name = form.register('name')
     accessible-description="lala"
     accessible-title="lala"
   >
-    <div class="flex min-w-[400px] flex-col gap-2 p-4 text-black">
+    <div class="flex min-w-[400px] flex-col gap-2 bg-black p-4 text-white">
       <AppDialogHeader
         :description="t('create_deck.description')"
         :title="t('create_deck.title')"

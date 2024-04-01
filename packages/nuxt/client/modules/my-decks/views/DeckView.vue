@@ -14,16 +14,27 @@ defineProps<Props>()
       <div
         v-for="card in deck.cards"
         :key="card.id"
-        class="min-h-40 rounded bg-white p-4 text-black"
+        class="grid grid-cols-2 rounded border-2 border-primary bg-black p-4 text-white"
       >
-        <h1 class="text-lg">
+        <p class="text-neutral-400">
+          Text on the front:
+        </p>
+        <p class="text-right text-lg">
           {{ card.frontText }}
-        </h1>
-        <p class="text-lg">
+        </p>
+        <p class="text-neutral-400">
+          Text on the back:
+        </p>
+        <p class="text-right text-lg">
           {{ card.backText }}
         </p>
       </div>
-      <DecksAddCard :deck-id="deck.id" />
+    </div>
+    <div class="flex items-center justify-center">
+      <DecksAddCard
+        :deck-id="deck.id"
+        class="min-w-96"
+      />
     </div>
   </div>
 </template>

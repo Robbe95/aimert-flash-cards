@@ -19,7 +19,7 @@ defineProps<Props>()
       <AppText
         as="h2"
         variant="heading"
-        class="text-black"
+        class="text-white"
       >
         {{ title }}
       </AppText>

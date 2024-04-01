@@ -12,9 +12,9 @@ const props = defineProps<{
 const { t } = useI18n()
 const { form, onSubmitForm } = useForm({
   initialState: {
-    backText: '',
+    backText: null,
     deckId: props.deckId,
-    frontText: '',
+    frontText: null,
   },
   schema: cardCreateInput,
 })
@@ -22,6 +22,10 @@ const createDeckMutation = useCreateCardMutation()
 
 onSubmitForm(async (values) => {
   await createDeckMutation.mutateAsync(values)
+  form.setValues({
+    backText: undefined,
+    frontText: undefined,
+  })
 })
 
 const backText = form.register('backText')

@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { usePlayDeckMutation } from '~/client/modules/my-decks/api/mutations/usePlayDeckMutation'
 import { getDeckQuery } from '~/client/modules/my-decks/api/queries/getDeckQuery'
-import DeckView from '~/client/modules/my-decks/views/DeckView.vue'
 
 definePageMeta({
   middleware: 'auth-middleware',
@@ -9,13 +9,15 @@ definePageMeta({
 
 const route = useRoute()
 
-const { data, suspense } = getDeckQuery({ deckId: route.params.deckId })
+const playDeckMutation = usePlayDeckMutation()
+const { data, suspense } = getDeckQuery({ deckId: route.params.deckid })
 
+await playDeckMutation.mutateAsync({ deckId: route.params.deckid })
 await suspense()
 </script>
 
 <template>
-  <DeckView
+  <DeckPlayView
     v-if="data != null"
     :deck="data"
   />

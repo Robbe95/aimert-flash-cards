@@ -1,8 +1,10 @@
+import { TRPCError } from '@trpc/server'
 import {
   and,
   eq,
   inArray,
 } from 'drizzle-orm'
+import type { z } from 'zod'
 
 import { useDatabase } from '~/server/database/database'
 import { cards } from '~/server/entities/cards.entity'
@@ -13,6 +15,7 @@ import type { DeckInsert } from '~/server/models/deck.model'
 import type { CardCreateInput } from '~/shared/models/cards/cardCreate.model'
 import type { CardDeleteInput } from '~/shared/models/cards/cardDelete.model'
 import type { CardGuessInput } from '~/shared/models/cards/cardGuess.model'
+import type { deckSchema } from '~/shared/models/decks/deck.model'
 import type { DeckArchiveInput } from '~/shared/models/decks/deckArchive.model'
 import type { DeckDeleteInput } from '~/shared/models/decks/deckDelete.model'
 import type { DeckPlayInput } from '~/shared/models/decks/deckPlay.model'
@@ -35,16 +38,31 @@ export function useDecksService() {
     return response.length > 0
   }
 
-  async function getDeck(deckId: string) {
-    return await db.query.decks.findFirst({
+  async function getDeck(deckId: string, userId: string) {
+    const deck = await db.query.decks.findFirst({
       where: (decks, { eq }) => (eq(decks.id, deckId)),
       with: { cards: {
         with: { guesses: true },
       } },
     })
+
+    if (deck == null) {
+      throw new TRPCError({
+        code: 'NOT_FOUND',
+        message: 'Deck not found',
+      })
+    }
+
+    return {
+      ...deck,
+      cards: deck.cards.map(card => ({
+        ...card,
+        guesses: card.guesses.filter(guess => guess.userId === userId),
+      })),
+    }
   }
 
-  async function getDecksOfUserId(userId: string) {
+  async function getDecksOfUserId(userId: string): Promise<z.input<typeof deckSchema>[]> {
     const decksQuery = await db
       .select({ deckId: userDeck.deckId })
       .from(userDeck)
@@ -59,11 +77,13 @@ export function useDecksService() {
       } },
     })
 
-    return decks.map((deck) => {
-      return deck.cards.map((card) => {
-        return card.guesses = card.guesses.filter(guess => guess.userId === userId)
-      })
-    })
+    return decks.map(deck => ({
+      ...deck,
+      cards: deck.cards.map(card => ({
+        ...card,
+        guesses: card.guesses.filter(guess => guess.userId === userId),
+      })),
+    }))
   }
 
   async function createDeck(createDeckParams: { name: string, userId: string }) {
@@ -94,7 +114,7 @@ export function useDecksService() {
     const cardIdsOfDeck = await db
       .select({ id: cards.id })
       .from(cards)
-      .where(eq(userDeck.deckId, playParams.deckId))
+      .where(eq(cards.deckId, playParams.deckId))
 
     await db
       .delete(userCardGuess)
@@ -104,7 +124,7 @@ export function useDecksService() {
   async function guessCard(cardGuessParams: CardGuessInput, userId: string) {
     const insertValues = {
       cardId: cardGuessParams.cardId,
-      isCorrect: cardGuessParams.isCorrect,
+      isGuessCorrect: cardGuessParams.isCorrect,
       userId,
     }
 

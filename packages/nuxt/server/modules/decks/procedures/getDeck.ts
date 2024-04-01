@@ -19,7 +19,7 @@ export const getDeck = authProcedure
       })
     }
 
-    const userDeck = await decksService.getDeck(input.deckId)
+    const userDeck = await decksService.getDeck(input.deckId, ctx.user.id)
 
     return userDeck
   })
