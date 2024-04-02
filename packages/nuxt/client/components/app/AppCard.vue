@@ -9,7 +9,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 rounded-card bg-card p-4 text-card-foreground shadow-card-shadow">
+  <div class="flex flex-col gap-4 rounded-card border border-primary/40 bg-black p-4 text-card-foreground shadow-card-shadow">
     <div>
       <AppText
         variant="subtitle"

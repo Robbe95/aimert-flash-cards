@@ -60,15 +60,15 @@ function guessCard(isCorrect: boolean) {
 </script>
 
 <template>
-  <div>
-    <div>
-      <h1 class="text-2xl">
-        {{ currentCard?.frontText }}
-      </h1>
-      <p class="text-lg">
-        {{ currentCard?.backText }}
-      </p>
-    </div>
+  <div class="flex flex-col items-center justify-center">
+    <DecksFlipCard v-if="currentCard">
+      <template #front>
+        {{ currentCard.frontText }}
+      </template>
+      <template #back>
+        {{ currentCard.backText }}
+      </template>
+    </DecksFlipCard>
     <div class="flex gap-2">
       <AppButton @click="guessCard(true)">
         Correct

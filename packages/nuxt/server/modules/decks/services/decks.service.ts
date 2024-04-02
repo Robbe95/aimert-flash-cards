@@ -12,7 +12,7 @@ import { decks } from '~/server/entities/decks.entity'
 import { userCardGuess } from '~/server/entities/userCardGuess.entity'
 import { userDeck } from '~/server/entities/userDeck.entity'
 import type { DeckInsert } from '~/server/models/deck.model'
-import type { CardCreateInput } from '~/shared/models/cards/cardCreate.model'
+import type { CardsCreateInput } from '~/shared/models/cards/cardCreate.model'
 import type { CardDeleteInput } from '~/shared/models/cards/cardDelete.model'
 import type { CardGuessInput } from '~/shared/models/cards/cardGuess.model'
 import type { deckSchema } from '~/shared/models/decks/deck.model'
@@ -23,10 +23,16 @@ import type { DeckPlayInput } from '~/shared/models/decks/deckPlay.model'
 export function useDecksService() {
   const db = useDatabase()
 
-  async function createCard(createCardParams: CardCreateInput) {
+  async function createCards(createCardsParams: CardsCreateInput) {
+    const values = createCardsParams.cards.map(card => ({
+      backText: card.backText,
+      deckId: createCardsParams.deckId,
+      frontText: card.frontText,
+    }))
+
     return await db
       .insert(cards)
-      .values(createCardParams)
+      .values(values)
   }
 
   async function userHasDeck(deckId: string, userId: string) {
@@ -165,7 +171,7 @@ export function useDecksService() {
 
   return {
     archiveDeck,
-    createCard,
+    createCards,
     createDeck,
     deleteCard,
     deleteDeck,

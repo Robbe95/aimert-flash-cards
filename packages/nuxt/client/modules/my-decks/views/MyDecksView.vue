@@ -2,6 +2,7 @@
 import { useDialog } from '@wisemen/vue-core'
 
 import { button } from '~/client/components/app/button/button.style'
+import { useActions } from '~/client/composables/actions/useActions'
 import type { DeckWithCounts } from '~/shared/models/decks/deck.model'
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 
 defineProps<Props>()
 
+const { setActions } = useActions()
 const dialog = useDialog({
   animateFromTrigger: true,
   component: () => import('../components/DecksCreateModal.vue'),
@@ -22,6 +24,16 @@ function onCreateDeck() {
     },
   })
 }
+
+setActions([
+  {
+    icon: 'minus',
+    id: dialog.triggerId,
+    label: 'Create Deck',
+    onAction: onCreateDeck,
+    variant: 'default',
+  },
+])
 </script>
 
 <template>
@@ -77,15 +89,6 @@ function onCreateDeck() {
           </NuxtLinkLocale>
         </div>
       </AppCard>
-    </div>
-
-    <div>
-      <AppButton
-        :id="dialog.triggerId"
-        @click="onCreateDeck"
-      >
-        Create Deck
-      </AppButton>
     </div>
   </div>
 </template>

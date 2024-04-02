@@ -8,5 +8,7 @@
   "login.title": "Inloggen",
   "shared.email": "E-mail",
   "shared.login": "Aanmelden",
-  "shared.password": "Wachtwoord"
+  "shared.password": "Wachtwoord",
+  "create_cards.submit": "Save cards",
+  "create_card.add_card": "Add card"
 }
